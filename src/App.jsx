@@ -16,6 +16,11 @@ export const goods = [
   'Garlic',
 ];
 
+const products = goods.map((item, index) => ({
+  productsId: index,
+  productName: item,
+}));
+
 export const App = () => {
   const [value, setValue] = useState('Jam');
 
@@ -41,16 +46,16 @@ export const App = () => {
 
       <table className="table">
         <tbody>
-          {goods.map((product, index) => (
+          {products.map(product => (
             <tr
               data-cy="Good"
               // eslint-disable-next-line react/no-array-index-key
-              key={index}
+              key={product.productsId}
               className={classNames({
-                'has-background-success-light': product === value,
+                'has-background-success-light': product.productName === value,
               })}
             >
-              {product === value ? (
+              {product.productName === value ? (
                 <td>
                   <button
                     data-cy="RemoveButton"
@@ -70,7 +75,7 @@ export const App = () => {
                     type="button"
                     className="button"
                     onClick={() => {
-                      setValue(product);
+                      setValue(product.productName);
                     }}
                   >
                     +
@@ -79,7 +84,7 @@ export const App = () => {
               )}
 
               <td data-cy="GoodTitle" className="is-vcentered">
-                {product}
+                {product.productName}
               </td>
             </tr>
           ))}
